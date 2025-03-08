@@ -1,0 +1,3 @@
+Corresponding SPDX license identifiers in the source code:
+
+AGPL-3.0-only      AGPL3-license.txt                       https://spdx.org/licenses/AGPL-3.0-only.html
