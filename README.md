@@ -10,6 +10,32 @@ and privacy.
 This is _Simple Notes_: a simple replacement for Google Keep.
 
 
+## Requirements
+
+* [Node.js](https://nodejs.org)
+* [Visual Studio Code](https://code.visualstudio.com/) (optional)
+* [ESLint for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) (optional)
+
+
+## Getting Started
+
+* Install all development dependencies with `pnpm install`;
+* Start the development server with `pnpm run dev`.
+
+The development server is accessible at http://localhost:5173/.
+
+Hot reload is enabled, so any change to the source will be reflected immediately
+to the running application.
+
+
+## Building
+
+* Install all development dependencies with `pnpm install`;
+* Build with `pnpm run build`.
+
+The build output is in the _dist_ directory.
+
+
 ## License
 
 This program is free software: you can redistribute it and/or modify it under
