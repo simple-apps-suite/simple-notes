@@ -6,7 +6,14 @@ import { useEffect, useState } from 'react';
 import { usePromise } from '../hooks/use-promise';
 import { useMatrix } from '../matrix-provider';
 
-type MatrixRequestOptionsAndResponse = { [K in keyof MatrixClient as MatrixClient[K] extends ((arg: infer P) => Promise<object>) ? (P extends object ? K : never) : never]: MatrixClient[K] extends ((arg: infer O) => Promise<infer R>) ? { Options: Exclude<O, undefined>, Response: R } : never };
+type MatrixRequestOptionsAndResponse = {
+  [K in keyof MatrixClient as MatrixClient[K] extends (() => Promise<object>) ? (K) : never]:
+    MatrixClient[K] extends ((options: infer O) => Promise<infer R>) ?
+    { Options: Exclude<O, undefined>, Response: R } :
+    MatrixClient[K] extends (() => Promise<infer R>) ?
+    { Options: never, Response: R } :
+    never
+};
 type MatrixRequestKey = keyof MatrixRequestOptionsAndResponse;
 type MatrixRequestOptions<K extends MatrixRequestKey> = MatrixRequestOptionsAndResponse[K]['Options'];
 type MatrixRequestResponse<K extends MatrixRequestKey> = MatrixRequestOptionsAndResponse[K]['Response'];
@@ -21,10 +28,16 @@ interface MatrixRequest<K extends MatrixRequestKey> {
 export function useMatrixRequest<K extends MatrixRequestKey>(api: K, options?: MatrixRequestOptions<K>): MatrixRequest<K> {
   const { client } = useMatrix();
 
-  const [{ currentResult, loadMore }, updateResult] = useState<{ currentResult?: MatrixRequestResponse<K>, loadMore?(): void }>({ currentResult: undefined, loadMore: undefined });
+  const [{ currentResult, loadMore }, updateResult] = useState<{ currentResult?: MatrixRequestResponse<K>, loadMore?(): void }>({
+    currentResult: undefined,
+    loadMore: undefined
+  });
+
   const { run, pending, rejected, error } = usePromise();
 
   useEffect(() => {
+    updateResult({ currentResult: undefined, loadMore: undefined });
+
     let firstArrayKey: string;
     let nextBatch: string;
     let mayHaveMoreData = false;

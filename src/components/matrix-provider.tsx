@@ -12,11 +12,12 @@ interface MatrixProviderProps {
 
 interface MatrixProviderValue {
   client: MatrixClient
-  replaceClient(options: Partial<ICreateClientOpts>): void
+  replaceClient(options: Partial<ICreateClientOpts>): MatrixClient
 }
 
 type MatrixConfig = {
   baseUrl?: string
+  accessToken?: string
 }
 
 const MatrixProviderContext = createContext<MatrixProviderValue | null>(null)
@@ -32,6 +33,7 @@ export function MatrixProvider({
 
     initialMatrixClientRef.current = createClient({
       baseUrl: checkType('string', config.baseUrl, defaultBaseUrl),
+      accessToken: checkType('string', config.accessToken, undefined),
     });
   }
 
@@ -44,12 +46,14 @@ export function MatrixProvider({
 
       const updatedConfig = {
         baseUrl: options.baseUrl ?? previousConfig.baseUrl ?? defaultBaseUrl,
+        accessToken: Object.prototype.hasOwnProperty.call(options, 'accessToken') ? options.accessToken : previousConfig.accessToken,
       } satisfies MatrixConfig;
 
       saveConfig(storageKey, updatedConfig);
 
       const newMatrixClient = createClient({
         baseUrl: updatedConfig.baseUrl ?? defaultBaseUrl,
+        accessToken: updatedConfig.accessToken,
         ...options,
       });
 
