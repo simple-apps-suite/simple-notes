@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: Copyright 2025 Fabio Iotti
+// SPDX-FileCopyrightText: Copyright 2023-2025 Fabio Iotti
 // SPDX-License-Identifier: MIT
 
 import { DependencyList, useCallback, useEffect, useRef, useState } from 'react';

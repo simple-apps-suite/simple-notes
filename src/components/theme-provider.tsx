@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright 2025 Fabio Iotti
 // SPDX-License-Identifier: AGPL-3.0-only
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 type Theme = 'dark' | 'light' | 'system';
 
@@ -21,7 +21,7 @@ const ThemeProviderContext = createContext<ThemeProviderValue | null>(null);
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
-  storageKey = "theme",
+  storageKey = 'theme',
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() =>
     (localStorage.getItem(storageKey) as Theme) ?? defaultTheme
@@ -31,7 +31,7 @@ export function ThemeProvider({
     let isLight = theme === 'light';
     let isDark = theme === 'dark';
     if (!isLight && !isDark) {
-      isDark = window.matchMedia("(prefers-color-scheme:dark)").matches;
+      isDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
       isLight = !isDark;
     }
 

@@ -1,3 +1,10 @@
+// SPDX-FileCopyrightText: Copyright (c) 2023 shadcn
+// SPDX-FileCopyrightText: Copyright 2025 Fabio Iotti
+// SPDX-License-Identifier: MIT AND AGPL-3.0-only
+
+// Note: originally licensed as MIT by shadcn, relicensed as AGPL-3.0-only
+// by Fabio Iotti.
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
